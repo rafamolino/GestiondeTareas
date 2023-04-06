@@ -123,7 +123,7 @@
                 android:inputType="textEmailAddress" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnLogin"
                 android:layout_width="343dp"
                 android:layout_height="58dp"
                 android:layout_below="@+id/imageView3"
@@ -141,8 +141,8 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/button"
-                android:layout_centerHorizontal="@+id/button"
+                android:layout_below="@id/btnLogin"
+                android:layout_centerHorizontal="@+id/btnLogin"
                 android:text="Forgot Password?"
                 android:textAlignment="center"
                 android:textColor="@color/colorOrange"
