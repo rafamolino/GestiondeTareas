@@ -63,7 +63,7 @@
             android:backgroundTint="@color/black"
             android:contentDescription="Home"
             android:src="@drawable/ic_circle_add"
-            app:tint="@color/colorOrange" />
+            app:tint="@color/purple_500" />
 
         <ImageButton
             android:id="@+id/button4"
