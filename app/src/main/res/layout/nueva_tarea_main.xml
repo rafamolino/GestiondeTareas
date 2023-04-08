@@ -166,7 +166,6 @@
                     android:layout_weight="3"
                     android:backgroundTint="@color/black"
                     android:contentDescription="Home"
-                    android:src="@drawable/baseline_calendar_month_24"
                     app:tint="@color/purple_500" />
             </LinearLayout>
         </TableRow>
