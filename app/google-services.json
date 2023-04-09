@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "749658975708",
+    "project_id": "gestiondetareas-58c2d",
+    "storage_bucket": "gestiondetareas-58c2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749658975708:android:7e97f496e4a0e5d8dab319",
+        "android_client_info": {
+          "package_name": "com.example.gestiondetareas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749658975708-vd5ven9oirfk3o5adg2aoclh5n5pgftd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gestiondetareas",
+            "certificate_hash": "2d66c9aeec3a832feddf600265733ebb9d0dbcf3"
+          }
+        },
+        {
+          "client_id": "749658975708-ma8oog3dar24dibe7hqfaeoee0ulv785.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKQ0stij9X6dD0tslk4J6zEXAsWZVHoi8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749658975708-ma8oog3dar24dibe7hqfaeoee0ulv785.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -42,10 +42,17 @@ public class MainActivity extends AppCompatActivity {
             Categoria categoria1 = new Categoria("Trabajo", "2/5", 40);
             Categoria categoria2 = new Categoria("Universidad", "1/3", 33);
             Categoria categoria3 = new Categoria("Casa", "3/3", 100);
+            Categoria categoria4 = new Categoria("Alimentacion", "3/3", 100);
+            Categoria categoria5 = new Categoria("Mascota", "3/3", 100);
+
 
             dbHelper.insertarCategoria(categoria1);
             dbHelper.insertarCategoria(categoria2);
             dbHelper.insertarCategoria(categoria3);
+            dbHelper.insertarCategoria(categoria4);
+            dbHelper.insertarCategoria(categoria5);
+
+
 
 
             Toast.makeText(MainActivity.this, "BASE DE DATOS CREADA", Toast.LENGTH_LONG).show();
