@@ -26,6 +26,9 @@
         <activity android:name=".Nueva_tarea_Activity" android:enabled="true">
 
         </activity>
+        <activity android:name=".RegistroActivity" android:enabled="true">
+
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

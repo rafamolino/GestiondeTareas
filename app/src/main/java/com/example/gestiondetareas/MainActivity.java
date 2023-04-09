@@ -79,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btnRegistro = (Button) findViewById(R.id.btnReg);
+        btnRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegistroActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
