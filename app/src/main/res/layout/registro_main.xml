@@ -17,7 +17,7 @@
 
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/labelUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -55,13 +55,13 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/edtName"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="@drawable/edt_background"
+                android:hint="Nombre"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Nombre"
                 android:textAlignment="center"
                 android:textStyle="italic" />
         </TableRow>
@@ -70,7 +70,7 @@
 
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/txtApellidos"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -81,12 +81,12 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextApellidos"
+                android:id="@+id/edtSurname"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="@drawable/edt_background"
                 android:ems="10"
-                android:text="Apellidos"
+                android:hint="Apellidos"
                 android:textAlignment="center"
                 android:textStyle="italic" />
 
@@ -107,12 +107,12 @@
 
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/edtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="@drawable/edt_background"
                 android:ems="10"
-                android:text="Correo"
+                android:hint="Correo"
                 android:textAlignment="center"
                 android:textStyle="italic" />
 
@@ -132,7 +132,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextTextPassword"
+                android:id="@+id/edtPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="@drawable/edt_background"
@@ -188,6 +188,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/signUpButton"
             android:layout_width="130dp"
             android:layout_height="55dp"
             android:backgroundTint="@color/purple_500"

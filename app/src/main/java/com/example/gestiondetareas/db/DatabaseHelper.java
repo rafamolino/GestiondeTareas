@@ -12,6 +12,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "gestion_tareas.db";
     private static final int DATABASE_VERSION = 1;
     public static final String TABLE_CATEGORIAS = "t_categorias";
+    public static final String TABLE_USUARIOS = "t_usuarios";
+
 
     // Sentencia SQL para crear la tabla de categorías
     private static final String SQL_CREATE_CATEGORIAS_TABLE =
@@ -19,6 +21,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "categoria TEXT," +
                     "contador TEXT, porcentaje INTEGER)";
+    // Sentencia SQL para crear la tabla de usuarios
+    private static final String SQL_CREATE_USUARIOS_TABLE =
+            "CREATE TABLE "+ TABLE_USUARIOS +" (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "nombre TEXT," +
+                    "apellidos TEXT, correo TEXT)";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -26,7 +34,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(SQL_CREATE_CATEGORIAS_TABLE);
+        db.execSQL(SQL_CREATE_USUARIOS_TABLE);
     }
 
     @Override
@@ -46,6 +56,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_CATEGORIAS, null, values);
         db.close();
+    }
+    // Método para insertar un nuevo usuario en la tabla de "usuarios"
+    public void insertarUsuario(Usuario usuario) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("nombre", usuario.getNombre());
+        values.put("apellidos", usuario.getApellidos());
+        values.put("correo", usuario.getCorreo());
+
+        db.insert(TABLE_USUARIOS, null, values);
+        db.close();
+    }
+    // Método para obtener el nombre de un usuario dado su correo electrónico
+    public String obtenerNombrePorCorreo(String correo) {
+        String nombre = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {"nombre"};
+        String selection = "correo" + " = ?";
+        String[] selectionArgs = {correo};
+        Cursor cursor = db.query(TABLE_USUARIOS, projection, selection, selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            int nombreIndex = cursor.getColumnIndex("nombre");
+            if (nombreIndex != -1) { // Verificar si la columna existe en el cursor
+                nombre = cursor.getString(nombreIndex);
+            }
+        }
+        cursor.close();
+        return nombre;
     }
 
     public ArrayList<Categoria> obtenerCategorias() {

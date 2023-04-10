@@ -55,7 +55,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/edtName"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="@drawable/edt_background"
@@ -70,7 +70,7 @@
 
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/txtApellidos"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -120,7 +120,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName2"
+                    android:id="@+id/edtEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/edt_background"
@@ -241,7 +241,7 @@
             app:tint="@color/purple_500" />
 
         <ImageButton
-            android:id="@+id/button4"
+            android:id="@+id/btnProfile"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_weight="1"
