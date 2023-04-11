@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -18,9 +19,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper; // Declarar una variable para el objeto DatabaseHelper
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -34,6 +41,7 @@ public class RegistroActivity extends AppCompatActivity {
         Button btnRegistro = (Button) findViewById(R.id.signUpButton);
         EditText edtCorreo = (EditText) findViewById(R.id.edtEmail);
         EditText edtContraseña = (EditText) findViewById(R.id.edtPassword);
+        EditText edtContraseña2 = (EditText) findViewById(R.id.edtPassword2);
         EditText edtSurname = (EditText) findViewById(R.id.edtSurname);
         EditText edtName = (EditText) findViewById(R.id.edtName);
 
@@ -41,7 +49,7 @@ public class RegistroActivity extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(edtCorreo.getText().toString()) && !TextUtils.isEmpty(edtContraseña.getText().toString())){
+                if(!TextUtils.isEmpty(edtCorreo.getText().toString()) && !TextUtils.isEmpty(edtContraseña.getText().toString()) && edtContraseña.getText().toString()==edtContraseña2.getText().toString() ){
 
                     FirebaseAuth.getInstance().
                             createUserWithEmailAndPassword(edtCorreo.getText().toString(), edtContraseña.getText().toString()).
@@ -49,9 +57,15 @@ public class RegistroActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
-                                        dbHelper = new DatabaseHelper(RegistroActivity.this);
+                                        /*dbHelper = new DatabaseHelper(RegistroActivity.this);
                                         Usuario user = new Usuario(edtName.getText().toString(), edtSurname.getText().toString(),edtCorreo.getText().toString());
-                                        dbHelper.insertarUsuario(user);
+                                        dbHelper.insertarUsuario(user);*/
+                                        Map<String, Object> datos = new HashMap<>();
+                                        datos.put("nombre", edtName.getText().toString());
+                                        datos.put("apellidos", edtSurname.getText().toString());
+
+                                        db.collection("usuarios").document(edtCorreo.getText().toString()).set(datos);
+
                                         Intent intent= new Intent(RegistroActivity.this, InicioActivity.class);
                                         intent.putExtra("email", task.getResult().getUser().getEmail());
                                         startActivity(intent);
@@ -80,6 +94,9 @@ public class RegistroActivity extends AppCompatActivity {
                                 }
                             });
 
+                }
+                else{
+                    Toast.makeText(RegistroActivity.this, "Comprueba que todos los campos estan correctos. Es posible que las contraseñas no sean iguales", Toast.LENGTH_LONG).show();
                 }
             }
         });
