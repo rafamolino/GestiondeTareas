@@ -17,70 +17,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.gestiondetareas.db.Categoria;
-import com.example.gestiondetareas.db.DatabaseHelper;
-import com.example.gestiondetareas.db.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    private DatabaseHelper dbHelper; // Declarar una variable para el objeto DatabaseHelper
-    private static final String PREFS_NAME = "MyPrefs"; // Nombre de las preferencias compartidas
-    private static final String DB_CREATED_KEY = "db_created"; // Clave para la bandera de creación de la base de datos
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        // Obtener las preferencias compartidas
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        boolean isDbCreated = prefs.getBoolean(DB_CREATED_KEY, false); // Obtener el valor de la bandera de creación de la base de datos
-
-
-        if(!isDbCreated) {
-            // Si la base de datos no se ha creado todavía, crear una nueva instancia de DatabaseHelper
-            dbHelper = new DatabaseHelper(this);
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            // Realizar las operaciones de creación inicial de la base de datos aquí
-            // ...
-
-            // Insertar datos en la tabla de categorias
-            Categoria categoria1 = new Categoria("Trabajo", "2/5", 40);
-            Categoria categoria2 = new Categoria("Universidad", "1/3", 33);
-            Categoria categoria3 = new Categoria("Casa", "3/3", 100);
-            Categoria categoria4 = new Categoria("Alimentacion", "3/3", 100);
-            Categoria categoria5 = new Categoria("Mascota", "3/3", 100);
-            Usuario user_admin= new Usuario("admin", "admin", "admin@admin.com");
-
-
-            dbHelper.insertarCategoria(categoria1);
-            dbHelper.insertarCategoria(categoria2);
-            dbHelper.insertarCategoria(categoria3);
-            dbHelper.insertarCategoria(categoria4);
-            dbHelper.insertarCategoria(categoria5);
-            dbHelper.insertarUsuario(user_admin);
-
-
-
-
-            Toast.makeText(MainActivity.this, "BASE DE DATOS CREADA", Toast.LENGTH_LONG).show();
-
-            // Actualizar la bandera de creación de la base de datos en las preferencias compartidas
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(DB_CREATED_KEY, true);
-            editor.apply();
-        } else {
-            // Si la base de datos ya se ha creado, simplemente crear una instancia de DatabaseHelper sin realizar ninguna operación
-            dbHelper = new DatabaseHelper(this);
-            Toast.makeText(MainActivity.this, "LA BASE DE DATOS YA ESTABA CREADA", Toast.LENGTH_LONG).show();
-
-        }
-
-
 
         Button btnRegistro = (Button) findViewById(R.id.btnReg);
         btnRegistro.setOnClickListener(new View.OnClickListener() {
@@ -148,10 +96,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Recuerda cerrar la base de datos en el onDestroy() u otro lugar apropiado para evitar fugas de memoria
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        dbHelper.close();
-    }
 }

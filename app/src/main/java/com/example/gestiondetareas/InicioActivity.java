@@ -14,9 +14,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.gestiondetareas.db.Categoria;
-import com.example.gestiondetareas.db.CategoriaAdapter;
-import com.example.gestiondetareas.db.DatabaseHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -32,12 +29,10 @@ import java.util.List;
 
 public class InicioActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private CategoriaAdapter categoriaAdapter;
-    private List<Categoria> listaCategorias;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +43,6 @@ public class InicioActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         TextView labelUser = (TextView) findViewById(R.id.labelUser);
         String correo= currentUser.getEmail();
-        //labelUser.setText(correo);
 
         DocumentReference docRef = db.collection("usuarios").document(correo);
 
@@ -70,20 +64,11 @@ public class InicioActivity extends AppCompatActivity {
 
 
 
-        // Obtén una instancia de tu base de datos SQLite
-       // db = new DatabaseHelper(this);
-        //String usuario = db.obtenerNombrePorCorreo(correo);
-        //Log.d("Correo", usuario);
-        //labelUser.setText("Hola " + usuario +"!");
-        // Obtén la lista de categorías de la base de datos
-        dbHelper = new DatabaseHelper(this);
-        listaCategorias = dbHelper.obtenerCategorias();
-
         // Configura el RecyclerView
-        recyclerView = findViewById(R.id.recyclerView);
+       /* recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         categoriaAdapter = new CategoriaAdapter(listaCategorias);
-        recyclerView.setAdapter(categoriaAdapter);
+        recyclerView.setAdapter(categoriaAdapter);*/
 
         ImageButton btnInicio = (ImageButton) findViewById(R.id.button2);
         btnInicio.setOnClickListener(new View.OnClickListener(){
@@ -111,12 +96,6 @@ public class InicioActivity extends AppCompatActivity {
         });
 
 
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Cierra la conexión con la base de datos al cerrar la actividad
-        dbHelper.close();
     }
 
 
