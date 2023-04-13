@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,21 +43,31 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ViewHolderCard
         TextView categoria;
         TextView fecha;
         TextView descripcion;
+        LinearLayout cardTarea;
         public ViewHolderCard(@NonNull View itemView) {
             super(itemView);
             titulo = (TextView) itemView.findViewById(R.id.tareaView);
-            estado = (TextView) itemView.findViewById(R.id.estadoView);
+            //estado = (TextView) itemView.findViewById(R.id.estadoView);
             categoria = (TextView) itemView.findViewById(R.id.categoriaView);
             fecha = (TextView) itemView.findViewById(R.id.fechaView);
-            descripcion = (TextView) itemView.findViewById(R.id.descripcionView);
+            //descripcion = (TextView) itemView.findViewById(R.id.descripcionView);
+            cardTarea = (LinearLayout) itemView.findViewById(R.id.cardTarea);
         }
 
         public void asignarDatos(Map<String, Object> dato) {
+
+            if(Boolean.valueOf(String.valueOf(dato.get("estado")))){
+                cardTarea.setBackgroundResource(R.drawable.card_shape);
+            }
+            else{
+                cardTarea.setBackgroundResource(R.drawable.card_shape2);
+
+            }
             titulo.setText(String.valueOf(dato.get("nombreTarea")));
-            estado.setText("Estado: "+ String.valueOf(dato.get("estado")));
-            categoria.setText("Categoría: "+String.valueOf(dato.get("categoriaTarea")));
-            fecha.setText("Fecha: "+String.valueOf(dato.get("fechaTarea")));
-            descripcion.setText(String.valueOf(dato.get("descripcionTarea")));
+            //estado.setText(String.valueOf(dato.get("estado")));
+            categoria.setText(String.valueOf(dato.get("categoriaTarea")));
+            fecha.setText(String.valueOf(dato.get("fechaTarea")));
+            //descripcion.setText(String.valueOf(dato.get("descripcionTarea")));
 
 
         }

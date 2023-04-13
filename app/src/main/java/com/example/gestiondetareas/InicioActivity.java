@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +34,6 @@ import java.util.Map;
 
 public class InicioActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -46,8 +46,7 @@ public class InicioActivity extends AppCompatActivity {
         setContentView(R.layout.inicio_main);
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
-        recyclerView = (RecyclerView) findViewById(R.id.TareasView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+
 
 
 
@@ -58,22 +57,7 @@ public class InicioActivity extends AppCompatActivity {
 
         DocumentReference docRef = db.collection("usuarios").document(correo);
         //Lista de Tareas
-        ArrayList<Map<String,Object>> ListTareas = new ArrayList<>();
 
-        db.collection("tareas").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                queryDocumentSnapshots.forEach(d -> {
-
-                    if(d.getId().contains(correo)){
-                        ListTareas.add(d.getData());
-
-                    }
-                });
-                AdapterCard adapterCard=new AdapterCard(ListTareas);
-                recyclerView.setAdapter(adapterCard);
-            }
-        });
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -99,6 +83,15 @@ public class InicioActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         categoriaAdapter = new CategoriaAdapter(listaCategorias);
         recyclerView.setAdapter(categoriaAdapter);*/
+
+        ImageView verTareas = (ImageView) findViewById(R.id.verTareas);
+        verTareas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(InicioActivity.this, ListadoTareasActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ImageButton btnInicio = (ImageButton) findViewById(R.id.button2);
         btnInicio.setOnClickListener(new View.OnClickListener(){

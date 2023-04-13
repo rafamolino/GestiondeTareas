@@ -79,7 +79,7 @@ public class Nueva_tarea_Activity extends AppCompatActivity {
                 datos.put("categoriaTarea", listaTareas.getSelectedItem().toString());
                 datos.put("fechaTarea", edtFechaTarea.getText().toString());
                 datos.put("correoUsuario", correoUsuarioLogueado);
-                datos.put("estado", "Iniciada");
+                datos.put("estado", true);
 
 
 
