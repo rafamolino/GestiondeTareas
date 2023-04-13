@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gestiondetareas.db.DatabaseHelper;
-import com.example.gestiondetareas.db.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity {
-    private DatabaseHelper dbHelper; // Declarar una variable para el objeto DatabaseHelper
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 

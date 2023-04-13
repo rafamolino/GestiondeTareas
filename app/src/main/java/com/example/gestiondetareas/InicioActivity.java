@@ -22,13 +22,19 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class InicioActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+
+    RecyclerView recyclerView;
+
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -40,11 +46,34 @@ public class InicioActivity extends AppCompatActivity {
         setContentView(R.layout.inicio_main);
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
+        recyclerView = (RecyclerView) findViewById(R.id.TareasView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+
+
+
+
         Bundle bundle = getIntent().getExtras();
         TextView labelUser = (TextView) findViewById(R.id.labelUser);
         String correo= currentUser.getEmail();
 
         DocumentReference docRef = db.collection("usuarios").document(correo);
+        //Lista de Tareas
+        ArrayList<Map<String,Object>> ListTareas = new ArrayList<>();
+
+        db.collection("tareas").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                queryDocumentSnapshots.forEach(d -> {
+
+                    if(d.getId().contains(correo)){
+                        ListTareas.add(d.getData());
+
+                    }
+                });
+                AdapterCard adapterCard=new AdapterCard(ListTareas);
+                recyclerView.setAdapter(adapterCard);
+            }
+        });
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -61,6 +90,7 @@ public class InicioActivity extends AppCompatActivity {
                 }
             }
         });
+
 
 
 
