@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class InicioActivity extends AppCompatActivity {
@@ -45,18 +46,38 @@ public class InicioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio_main);
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-
-
-
-
-
-
-        Bundle bundle = getIntent().getExtras();
+        TextView verTareas = (TextView) findViewById(R.id.verTareas);
         TextView labelUser = (TextView) findViewById(R.id.labelUser);
         String correo= currentUser.getEmail();
 
         DocumentReference docRef = db.collection("usuarios").document(correo);
         //Lista de Tareas
+        ArrayList<Map<String,Object>> ListTareas = new ArrayList<>();
+        AtomicInteger tareasPendientes = new AtomicInteger(0);
+        db.collection("tareas").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            Integer contador=0;
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                queryDocumentSnapshots.forEach(d -> {
+
+                    if(d.getId().contains(correo)){
+                        ListTareas.add(d.getData());
+                        if(d.get("estado").toString()=="true"){
+                            Log.d("Tareas", tareasPendientes.toString());
+                            tareasPendientes.incrementAndGet();
+                        }
+
+
+                    }
+                });
+                Log.d("Tareas", "Num tareas: " + tareasPendientes.toString());
+                verTareas.setText("Tienes "+ tareasPendientes.toString() + " tareas pendientes");
+
+            }
+
+
+        });
+
 
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -84,7 +105,6 @@ public class InicioActivity extends AppCompatActivity {
         categoriaAdapter = new CategoriaAdapter(listaCategorias);
         recyclerView.setAdapter(categoriaAdapter);*/
 
-        ImageView verTareas = (ImageView) findViewById(R.id.verTareas);
         verTareas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

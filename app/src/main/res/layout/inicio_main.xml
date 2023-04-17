@@ -49,11 +49,18 @@
             android:layout_height="256dp"
             android:orientation="horizontal">
 
-            <ImageView
+            <TextView
                 android:id="@+id/verTareas"
-                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="229dp"
+                android:layout_margin="20dp"
+                android:background="#8A7A7A"
+                android:backgroundTint="#D1C9C9"
+                android:clickable="true"
+                android:fontFamily="casual"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="34sp"
                 app:height="500dp"
                 app:srcCompat="@drawable/ic_launcher" />
 
