@@ -3,8 +3,8 @@
 <!-- tarjeta_categoria.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="200dp"
+    android:layout_height="150dp"
     android:background="#000000"
     android:orientation="vertical"
     android:padding="16dp">
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textSize="30sp" />
+                android:textSize="22sp" />
 
             <!-- Barra de progresión -->
             <TextView
@@ -40,10 +40,11 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/progresoTareas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#E0E0E0"

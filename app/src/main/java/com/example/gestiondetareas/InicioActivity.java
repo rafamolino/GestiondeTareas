@@ -2,6 +2,7 @@ package com.example.gestiondetareas;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +52,9 @@ public class InicioActivity extends AppCompatActivity {
         TextView verTareas = (TextView) findViewById(R.id.verTareas);
         TextView labelUser = (TextView) findViewById(R.id.labelUser);
         String correo= currentUser.getEmail();
+
+        RecyclerView contenedorCategorias = (RecyclerView) findViewById(R.id.contenedorCategorias);
+        contenedorCategorias.setLayoutManager(new GridLayoutManager(this, 2));
 
         DocumentReference docRef = db.collection("usuarios").document(correo);
         //Lista de Tareas
@@ -93,6 +99,61 @@ public class InicioActivity extends AppCompatActivity {
                 } else {
                     labelUser.setText("Error");
                 }
+            }
+        });
+
+        db.collection("tareas").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>(){
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                HashMap<String, int[]> categorias = new HashMap<>();
+
+                queryDocumentSnapshots.forEach(d -> {
+
+                    if(d.getId().contains(correo)){
+
+                        String categoria = d.get("categoriaTarea").toString();
+                        String estado = d.get("estado").toString();
+
+                        Log.d("Tareas", "categoria: " + categoria + " y estado: "+ estado);
+                        if(categorias.containsKey(categoria)){
+                            int[] estadoContador = categorias.get(categoria);
+                            if (estado=="true") {
+                                estadoContador[0]++; // Contador para estado "true"
+                            } else {
+                                estadoContador[1]++; // Contador para estado "false"
+                            }
+
+                        }
+                        else{
+                            int[] estadoContador = new int[2];
+                            if (estado=="true") {
+                                estadoContador[0] = 1; // Contador para estado "true"
+                                estadoContador[1] = 0; // Contador para estado "false"
+                            } else {
+                                estadoContador[0] = 0; // Contador para estado "true"
+                                estadoContador[1] = 1; // Contador para estado "false"
+                            }
+                            categorias.put(categoria, estadoContador);
+
+                        }
+
+                    }
+
+
+
+
+
+                });
+
+                CategoriaAdapter adapterCard=new CategoriaAdapter(categorias);
+                contenedorCategorias.setAdapter(adapterCard);
+                for (String categoria : categorias.keySet()) {
+                    int[] estadoContador = categorias.get(categoria);
+                    Log.d("CATEGORIA_COMPLETA", categoria + " true:" + estadoContador[0] + " false:" + estadoContador[1]);
+                }
+
+
+
             }
         });
 
