@@ -37,7 +37,8 @@ public class ListadoTareasActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
         ArrayList<Map<String,Object>> ListTareas = new ArrayList<>();
-
+        ArrayList<Map<String,Object>> ListTareasCheck = new ArrayList<>();
+        ArrayList<Map<String,Object>> ListTareasCruz = new ArrayList<>();
         db.collection("tareas").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -49,20 +50,56 @@ public class ListadoTareasActivity extends AppCompatActivity {
 
                     }
                 });
+                ListTareas.forEach(i -> {
+                    if(Boolean.valueOf(String.valueOf(i.get("estado")))){
+                        ListTareasCheck.add(i);
+                    }
+                });
+                ListTareas.forEach(i -> {
+                    if(!Boolean.valueOf(String.valueOf(i.get("estado")))){
+                        ListTareasCruz.add(i);
+                    }
+                });
                 AdapterCard adapterCard=new AdapterCard(ListTareas);
                 recyclerView.setAdapter(adapterCard);
             }
         });
 
-        ImageView verTareas = (ImageView) findViewById(R.id.button2);
-        ImageButton btnVolver = (ImageButton) findViewById(R.id.btnVolver);
+        ImageButton btnList = (ImageButton) findViewById(R.id.btnListTasks);
 
-        btnVolver.setOnClickListener(new View.OnClickListener() {
+        btnList.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();
+            public void onClick(View v) {
+
+                AdapterCard adapterCard=new AdapterCard(ListTareas);
+                recyclerView.setAdapter(adapterCard);
             }
         });
+
+        ImageButton btnCheck = (ImageButton) findViewById(R.id.btnCheck);
+
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AdapterCard adapterCard=new AdapterCard(ListTareasCheck);
+                recyclerView.setAdapter(adapterCard);
+            }
+        });
+
+        ImageButton btnCruz = (ImageButton) findViewById(R.id.btnCruz);
+
+        btnCruz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AdapterCard adapterCard=new AdapterCard(ListTareasCruz);
+                recyclerView.setAdapter(adapterCard);
+            }
+        });
+
+        ImageView verTareas = (ImageView) findViewById(R.id.button2);
+
         verTareas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

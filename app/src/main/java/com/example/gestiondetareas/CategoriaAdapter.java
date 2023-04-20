@@ -1,5 +1,7 @@
 package com.example.gestiondetareas;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +24,17 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv1;
         public TextView tv2;
+        public Context context;
         public ProgressBar tv3;
 
+        public LinearLayout ly;
         public ViewHolder(View v) {
             super(v);
+            context = v.getContext();
             tv1 = v.findViewById(R.id.tvNombre);
             tv2 = v.findViewById(R.id.tvDescripcion);
             tv3 = v.findViewById(R.id.progresoTareas);
+            ly = v.findViewById(R.id.cardLayout);
         }
     }
 
@@ -47,6 +53,15 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.View
         holder.tv1.setText(categoria);
         holder.tv2.setText("Completadas: " + estadoContador[1]+"/"+ (estadoContador[0]+estadoContador[1]));
         holder.tv3.setProgress((estadoContador[1]*100)/(estadoContador[0]+estadoContador[1]));
+
+        holder.ly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(holder.context, ListadoCategoriasActivity.class);
+                intent.putExtra("tvNombre", holder.tv1.getText());
+                holder.context.startActivity(intent);
+            }
+        });
     }
 
     @Override

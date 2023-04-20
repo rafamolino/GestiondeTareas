@@ -159,7 +159,6 @@ public class InicioActivity extends AppCompatActivity {
 
 
 
-
         // Configura el RecyclerView
        /* recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -195,6 +194,24 @@ public class InicioActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(InicioActivity.this, PerfilActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton btnTasks = (ImageButton) findViewById(R.id.imageButton);
+        btnTasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(InicioActivity.this, ListadoTareasActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton btnAnalisis = (ImageButton) findViewById(R.id.imageButton2);
+        btnAnalisis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(InicioActivity.this, ListadoTareasActivity.class);
                 startActivity(intent);
             }
         });
