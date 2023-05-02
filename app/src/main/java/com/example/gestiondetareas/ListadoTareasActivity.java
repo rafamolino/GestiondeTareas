@@ -51,12 +51,12 @@ public class ListadoTareasActivity extends AppCompatActivity {
                     }
                 });
                 ListTareas.forEach(i -> {
-                    if(Boolean.valueOf(String.valueOf(i.get("estado")))){
+                    if(!Boolean.valueOf(String.valueOf(i.get("estado")))){
                         ListTareasCheck.add(i);
                     }
                 });
                 ListTareas.forEach(i -> {
-                    if(!Boolean.valueOf(String.valueOf(i.get("estado")))){
+                    if(Boolean.valueOf(String.valueOf(i.get("estado")))){
                         ListTareasCruz.add(i);
                     }
                 });
@@ -107,5 +107,10 @@ public class ListadoTareasActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    public void onBackPressed() {
+        Intent intent = new Intent(this, InicioActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

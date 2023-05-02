@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
 
-    tools:context=".Nueva_tarea_Activity" >
+    tools:context=".Nueva_tarea_Activity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guia1"
@@ -15,18 +15,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guia2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.6" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guia3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guia4"
         android:layout_width="wrap_content"
@@ -34,25 +37,17 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.3" />
 
-    <ImageButton
-        android:id="@+id/btnVolver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="Volver"
-        app:layout_constraintBottom_toTopOf="@+id/guia1"
-        app:layout_constraintEnd_toStartOf="@+id/guia4"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
-
     <TextView
         android:id="@+id/txtNuevaTarea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/monoton"
+
         android:text="Nueva tarea"
-        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40dp"
+
         app:layout_constraintBottom_toTopOf="@+id/guia1"
         app:layout_constraintEnd_toStartOf="@+id/guia3"
         app:layout_constraintStart_toStartOf="@+id/guia4"
@@ -66,7 +61,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="Nombre de la tarea"
-        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+
+
+        android:textSize="22sp"
+
+        android:textStyle="bold"
+
         app:layout_constraintBottom_toTopOf="@+id/guia1"
         app:layout_constraintEnd_toStartOf="@+id/edtNombreTarea"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,11 +76,18 @@
 
     <EditText
         android:id="@+id/edtNombreTarea"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="167dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/edt_background"
+        android:ems="10"
+
+        android:hint="Nombre"
         android:inputType="textPersonName"
+        android:textAlignment="center"
+
         android:textSize="16sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/guia1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/labelNuevaTarea"
@@ -93,7 +101,12 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="Categoría"
-        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+
+
+        android:textSize="22sp"
+
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guia2"
         app:layout_constraintEnd_toStartOf="@+id/listaCategorias"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,26 +118,35 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+
+
         android:contentDescription="ListaCategorias"
+
         app:layout_constraintBottom_toTopOf="@+id/guia2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/labelCategoria"
-        app:layout_constraintTop_toTopOf="@+id/guia1" />
+        app:layout_constraintTop_toTopOf="@+id/guia1"
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/labelDescripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descripción"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:textSize="20sp"
-        app:layout_constraintVertical_bias="0.9"
+        android:text="Descripción"
+
+        android:textColor="@color/colorWhite"
+
+
+        android:textSize="22sp"
+
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guia2"
         app:layout_constraintEnd_toStartOf="@+id/edtDescripcion"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelCategoria" />
+        app:layout_constraintTop_toBottomOf="@+id/labelCategoria"
+        app:layout_constraintVertical_bias="0.651" />
 
     <EditText
         android:id="@+id/edtDescripcion"
@@ -132,8 +154,12 @@
         android:layout_height="0dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/edt_background"
+
+        android:hint="Descripción"
+        android:textAlignment="center"
         android:textSize="20sp"
-        android:gravity="bottom"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/guia2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/labelDescripcion"
@@ -143,28 +169,50 @@
         android:id="@+id/labelFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fecha máxima"
-        android:textSize="20sp"
         android:layout_marginStart="20dp"
+
         android:layout_marginEnd="20dp"
-        app:layout_constraintVertical_bias="0.25"
+
+
+        android:text="Fecha máxima"
+
+        android:textColor="@color/colorWhite"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/edtFecha"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guia2" />
+        app:layout_constraintTop_toTopOf="@+id/guia2"
+        app:layout_constraintVertical_bias="0.25" />
 
     <EditText
         android:id="@+id/edtFecha"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="38dp"
         android:layout_marginEnd="20dp"
-        android:drawableEnd="@drawable/baseline_calendar_month_24"
+        android:textAlignment="textStart"
+        android:paddingLeft="3dp"
+        android:background="@drawable/edt_background"
+        android:focusable="false"
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/labelFecha"
         app:layout_constraintTop_toTopOf="@+id/guia2"
         app:layout_constraintVertical_bias="0.25" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guia2"
+        app:layout_constraintVertical_bias="0.256"
+        app:srcCompat="@drawable/baseline_calendar_month_24" />
 
     <Button
         android:id="@+id/btnAñadirTarea"

@@ -211,7 +211,7 @@ public class InicioActivity extends AppCompatActivity {
         btnAnalisis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(InicioActivity.this, ListadoTareasActivity.class);
+                Intent intent= new Intent(InicioActivity.this, Analisis.class);
                 startActivity(intent);
             }
         });

@@ -1,5 +1,6 @@
 package com.example.gestiondetareas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -55,6 +56,10 @@ public class ListadoCategoriasActivity extends AppCompatActivity {
             }
         });
 
-
+    }
+    public void onBackPressed() {
+        Intent intent = new Intent(this, InicioActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

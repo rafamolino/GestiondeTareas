@@ -1,11 +1,13 @@
 package com.example.gestiondetareas;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -23,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +42,29 @@ public class Nueva_tarea_Activity extends AppCompatActivity {
         setContentView(R.layout.nueva_tarea_main);
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         String correoUsuarioLogueado= currentUser.getEmail();
+        ImageButton fecha = (ImageButton) findViewById(R.id.imageButton3);
+        EditText fechaEdt = (EditText) findViewById(R.id.edtFecha);
+        fecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+
+            private void showDatePickerDialog() {
+                DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        // +1 because January is zero
+                        final String selectedDate = day + " / " + (month+1) + " / " + year;
+
+                        fechaEdt.setText(selectedDate);
+                    }
+                });
+
+                newFragment.show(getSupportFragmentManager(), "datePicker");
+            }
+        });
+
 
 
         db.collection("categorias")
@@ -103,14 +129,7 @@ public class Nueva_tarea_Activity extends AppCompatActivity {
 
 
 
-        ImageButton btnVolver = (ImageButton) findViewById(R.id.btnVolver);
 
-        btnVolver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
 
 
