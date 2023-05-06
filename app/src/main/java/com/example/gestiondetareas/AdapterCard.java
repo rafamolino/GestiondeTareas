@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -42,6 +43,32 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ViewHolderCard
     public AdapterCard.ViewHolderCard onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardtarea,null,false);
         return new ViewHolderCard(view);
+    }
+
+    public void changeStatus(int position){
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        String correo= currentUser.getEmail();
+        Map<String, Object> tarea = ListTareas.get(position);
+        Log.d("Tareas", correo);
+        Log.d("Tareas",  tarea.get("nombreTarea").toString());
+        db.collection("tareas")
+                .whereEqualTo("correoUsuario", correo)
+                .whereEqualTo("nombreTarea", tarea.get("nombreTarea"))
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        boolean estadoActual = (boolean) tarea.get("estado");
+                        documentSnapshot.getReference().update("estado", !estadoActual);
+                        tarea.put("estado", !estadoActual);
+                        notifyDataSetChanged();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("AdapterCard", "Error al cambiar estado de tarea", e);
+                });
+
+
     }
 
     @Override
