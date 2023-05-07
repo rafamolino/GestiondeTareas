@@ -16,23 +16,6 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="5"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/imageButton5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:backgroundTint="#00FFFFFF"
-                app:srcCompat="@drawable/baseline_check_circle_outline_24" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/cardTarea"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -124,21 +107,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/imageButton4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:backgroundTint="#00FFFFFF"
-                app:srcCompat="@drawable/baseline_delete_24" />
-        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

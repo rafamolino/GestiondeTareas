@@ -1,6 +1,10 @@
 package com.example.gestiondetareas;
 
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -70,8 +74,35 @@ public class EditarTareas extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
 
+                        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                            // Calcular la posición de la vista personalizada
+                            View itemView = viewHolder.itemView;
+                            float width = (float) itemView.getWidth();
+                            float alpha = 1.0f - Math.abs(dX) / width;
+                            float textSize = 80f;
+                            float textPadding = 50f;
+                            Paint paint = new Paint();
+                            paint.setColor(Color.RED);
+                            paint.setTextSize(textSize);
+                            paint.setAlpha((int) (255 * alpha));
+                            paint.setTextAlign(Paint.Align.LEFT); // alinear el texto a la izquierda
+                            paint.setTypeface(Typeface.DEFAULT_BOLD); // establecer el tipo de fuente en negrita
+                            paint.setStyle(Paint.Style.FILL);
+                            paint.setShadowLayer(10f, 10f, 10f, Color.BLACK); // agregar sombra al texto
+
+                            // Dibujar la vista personalizada en la posición de la tarjeta
+                            c.drawRect(itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom(), paint);
+                            c.drawText("Eliminar tarea", itemView.getLeft() + textPadding, itemView.getTop() + itemView.getHeight() / 2f + textSize / 2f, paint); // establecer la posición del texto en la posición central de la "card"
+                        }
+                    }
+
+
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         adapterCard.deleteCard(viewHolder.getAdapterPosition());
                         if(ListTareas.get(viewHolder.getAdapterPosition()).get("estado").toString().equals("false")){
                             ListTareasCheck.remove(viewHolder.getAdapterPosition());
@@ -80,15 +111,40 @@ public class EditarTareas extends AppCompatActivity {
                             ListTareasCruz.remove(viewHolder.getAdapterPosition());
 
                         }
-
-
                     }
                 }).attachToRecyclerView(recyclerView);
+
 
                 new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                         return false;
+                    }
+
+                    @Override
+                    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+                        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                            // Calcular la posición de la vista personalizada
+                            View itemView = viewHolder.itemView;
+                            float width = (float) itemView.getWidth();
+                            float alpha = 1.0f - Math.abs(dX) / width;
+                            float textSize = 80f;
+                            float textPadding = 50f;
+                            Paint paint = new Paint();
+                            paint.setColor(Color.WHITE);
+                            paint.setTextSize(textSize);
+                            paint.setTypeface(Typeface.DEFAULT_BOLD); // establecer el tipo de fuente en negrita
+                            paint.setStyle(Paint.Style.FILL);
+                            paint.setShadowLayer(10f, 10f, 10f, Color.BLACK); // agregar sombra al texto
+                            paint.setAlpha((int) (255 * alpha));
+                            paint.setTextAlign(Paint.Align.RIGHT); // alinear el texto a la derecha
+
+                            // Dibujar la vista personalizada en la posición de la tarjeta
+                            c.drawRect(itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom(), paint);
+                            c.drawText("Cambiar estado", itemView.getRight() - textPadding, itemView.getTop() + (itemView.getHeight() / 2f) + (textSize / 2f), paint); // establecer la posición del texto a la derecha
+                        }
                     }
 
                     @Override

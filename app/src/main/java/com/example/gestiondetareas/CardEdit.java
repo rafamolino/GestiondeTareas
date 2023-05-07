@@ -106,8 +106,6 @@ public class CardEdit extends RecyclerView.Adapter<CardEdit.ViewHolderCard> {
         ImageView estado;
         TextView estadoTxt;
         Context context;
-        ImageButton check;
-        ImageButton elim;
         TextView categoria;
         ImageButton delete;
         TextView fecha;
@@ -116,8 +114,6 @@ public class CardEdit extends RecyclerView.Adapter<CardEdit.ViewHolderCard> {
 
         public ViewHolderCard(@NonNull View itemView) {
             super(itemView);
-            check = (ImageButton) itemView.findViewById(R.id.imageButton5);
-            elim = (ImageButton) itemView.findViewById(R.id.imageButton4);
             titulo = (TextView) itemView.findViewById(R.id.tareaView);
             estadoTxt = (TextView) itemView.findViewById(R.id.textView2);
             estado = (ImageView) itemView.findViewById(R.id.imageView24);
@@ -139,12 +135,10 @@ public class CardEdit extends RecyclerView.Adapter<CardEdit.ViewHolderCard> {
                 estadoTxt.setTextColor(Color.parseColor("#ff5232"));
                 estado.setColorFilter(Color.parseColor("#ff5232"));
                 estado.setImageResource(R.drawable.baseline_close_24);
-                check.setImageResource(R.drawable.baseline_check_circle_outline_24);
             } else {
                 cardTarea.setBackgroundResource(R.drawable.card_shape2);
                 titulo.setTextColor(Color.parseColor("#48a259"));
                 categoria.setTextColor(Color.parseColor("#48a259"));
-                check.setImageResource(R.drawable.baseline_close_24);
                 estado.setImageResource(R.drawable.baseline_check_circle_outline_24);
                 estado.setColorFilter(Color.parseColor("#48a259"));
                 estadoTxt.setTextColor(Color.parseColor("#48a259"));
