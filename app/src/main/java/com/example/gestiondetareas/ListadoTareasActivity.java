@@ -65,20 +65,9 @@ public class ListadoTareasActivity extends AppCompatActivity {
                 AdapterCard adapterCard=new AdapterCard(ListTareas);
                 recyclerView.setAdapter(adapterCard);
 
-                new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-                    @Override
-                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                        return false;
-                    }
 
-                    @Override
-                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-                        adapterCard.changeStatus(viewHolder.getAdapterPosition());
-
-                    }
-                }).attachToRecyclerView(recyclerView);
             }
+
         });
 
         ImageButton btnList = (ImageButton) findViewById(R.id.btnListTasks);
@@ -89,6 +78,7 @@ public class ListadoTareasActivity extends AppCompatActivity {
 
                 AdapterCard adapterCard=new AdapterCard(ListTareas);
                 recyclerView.setAdapter(adapterCard);
+
             }
         });
 
@@ -100,6 +90,7 @@ public class ListadoTareasActivity extends AppCompatActivity {
 
                 AdapterCard adapterCard=new AdapterCard(ListTareasCheck);
                 recyclerView.setAdapter(adapterCard);
+
             }
         });
 
@@ -111,6 +102,7 @@ public class ListadoTareasActivity extends AppCompatActivity {
 
                 AdapterCard adapterCard=new AdapterCard(ListTareasCruz);
                 recyclerView.setAdapter(adapterCard);
+
             }
         });
 
@@ -123,7 +115,38 @@ public class ListadoTareasActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ImageView analisis = (ImageView) findViewById(R.id.imageButton2);
+
+        analisis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(ListadoTareasActivity.this, Analisis.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView perfil = (ImageView) findViewById(R.id.btnProfile);
+
+        perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(ListadoTareasActivity.this,PerfilActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView nueva = (ImageView) findViewById(R.id.button3);
+
+        nueva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(ListadoTareasActivity.this, Nueva_tarea_Activity.class);
+                startActivity(intent);
+            }
+        });
     }
+
     public void onBackPressed() {
         Intent intent = new Intent(this, InicioActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

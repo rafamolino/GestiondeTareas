@@ -77,15 +77,6 @@
                 android:backgroundTint="#00FFFFFF"
                 app:tint="@color/colorOrange" />
 
-            <ImageButton
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:backgroundTint="#00FFFFFF"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/baseline_delete_24" />
-
         </LinearLayout>
 
         <TextView

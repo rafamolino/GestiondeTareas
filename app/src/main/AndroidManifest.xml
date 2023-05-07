@@ -43,6 +43,9 @@
         <activity android:name=".CategoriaAdapter" android:enabled="true">
 
         </activity>
+        <activity android:name=".EditarTareas" android:enabled="true">
+
+        </activity>
         <activity android:name=".AdapterCard" android:enabled="true">
 
         </activity>

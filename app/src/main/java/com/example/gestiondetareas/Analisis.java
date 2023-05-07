@@ -1,9 +1,12 @@
 package com.example.gestiondetareas;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -139,6 +142,46 @@ public class Analisis extends AppCompatActivity {
             }
 
 
+        });
+
+        ImageView analisis = (ImageView) findViewById(R.id.imageButton2);
+
+        analisis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(Analisis.this, Analisis.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView perfil = (ImageView) findViewById(R.id.btnProfile);
+
+        perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(Analisis.this,PerfilActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView home = (ImageView) findViewById(R.id.button2);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(Analisis.this, InicioActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView nueva = (ImageView) findViewById(R.id.button3);
+
+        nueva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(Analisis.this, Nueva_tarea_Activity.class);
+                startActivity(intent);
+            }
         });
     }
 }

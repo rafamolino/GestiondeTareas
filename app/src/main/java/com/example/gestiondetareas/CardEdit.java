@@ -1,10 +1,7 @@
 package com.example.gestiondetareas;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,24 +22,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
-public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ViewHolderCard> {
+public class CardEdit extends RecyclerView.Adapter<CardEdit.ViewHolderCard> {
     ArrayList<Map<String,Object>> ListTareas;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-    public AdapterCard(ArrayList<Map<String,Object>> listTareas) {
+    public CardEdit(ArrayList<Map<String,Object>> listTareas) {
         ListTareas = listTareas;
     }
 
-    @NonNull
-    @Override
-    public AdapterCard.ViewHolderCard onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardtarea,null,false);
-        return new ViewHolderCard(view);
+    public CardEdit.ViewHolderCard onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.editcard,null,false);
+        return new CardEdit.ViewHolderCard(view);
     }
 
     public void deleteCard(int position){
@@ -92,8 +86,7 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ViewHolderCard
 
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull AdapterCard.ViewHolderCard holder, int position) {
+    public void onBindViewHolder(@NonNull CardEdit.ViewHolderCard holder, int position) {
 
         holder.asignarDatos(ListTareas.get(position));
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -103,7 +96,7 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ViewHolderCard
 
     }
 
-    @Override
+
     public int getItemCount() {
         return ListTareas.size();
     }
@@ -113,6 +106,8 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ViewHolderCard
         ImageView estado;
         TextView estadoTxt;
         Context context;
+        ImageButton check;
+        ImageButton elim;
         TextView categoria;
         ImageButton delete;
         TextView fecha;
@@ -121,6 +116,8 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ViewHolderCard
 
         public ViewHolderCard(@NonNull View itemView) {
             super(itemView);
+            check = (ImageButton) itemView.findViewById(R.id.imageButton5);
+            elim = (ImageButton) itemView.findViewById(R.id.imageButton4);
             titulo = (TextView) itemView.findViewById(R.id.tareaView);
             estadoTxt = (TextView) itemView.findViewById(R.id.textView2);
             estado = (ImageView) itemView.findViewById(R.id.imageView24);
@@ -142,11 +139,12 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ViewHolderCard
                 estadoTxt.setTextColor(Color.parseColor("#ff5232"));
                 estado.setColorFilter(Color.parseColor("#ff5232"));
                 estado.setImageResource(R.drawable.baseline_close_24);
+                check.setImageResource(R.drawable.baseline_check_circle_outline_24);
             } else {
                 cardTarea.setBackgroundResource(R.drawable.card_shape2);
                 titulo.setTextColor(Color.parseColor("#48a259"));
                 categoria.setTextColor(Color.parseColor("#48a259"));
-
+                check.setImageResource(R.drawable.baseline_close_24);
                 estado.setImageResource(R.drawable.baseline_check_circle_outline_24);
                 estado.setColorFilter(Color.parseColor("#48a259"));
                 estadoTxt.setTextColor(Color.parseColor("#48a259"));
@@ -161,4 +159,5 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ViewHolderCard
         }
 
     }
+
 }
