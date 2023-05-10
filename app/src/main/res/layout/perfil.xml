@@ -95,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtNotificaciones" />
 
     <Switch
-        android:id="@+id/switch4"
+        android:id="@+id/switchNotificaciones"
         android:layout_width="48dp"
         android:layout_height="48dp"
         app:layout_constraintBottom_toTopOf="@+id/guia2"

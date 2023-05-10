@@ -31,6 +31,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnRegistro = (Button) findViewById(R.id.btnReg);
+
+        PreferenceManager preferenceManager = new PreferenceManager(this);
+        String userEmail = preferenceManager.getUserEmail();
+
+        if (userEmail != null) {
+            // Usuario ya ha iniciado sesión previamente
+            Intent intent= new Intent(MainActivity.this, InicioActivity.class);
+            startActivity(intent);
+        }
+
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
+
+                                        // Después de la autenticación exitosa
+                                        String userEmail = task.getResult().getUser().getEmail();
+                                        PreferenceManager preferenceManager = new PreferenceManager(MainActivity.this);
+                                        preferenceManager.setUserEmail(userEmail);
+
 
                                         Intent intent= new Intent(MainActivity.this, InicioActivity.class);
                                         intent.putExtra("email", task.getResult().getUser().getEmail());

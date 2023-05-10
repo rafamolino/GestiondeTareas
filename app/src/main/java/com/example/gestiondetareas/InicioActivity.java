@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -38,6 +43,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class InicioActivity extends AppCompatActivity {
 
+    private static final int NOTIFICATION_REQUEST_CODE = 1;
+    private static final String PREFS_NAME = "MyPrefs";
+    private static final String NOTIFICATION_ENABLED_KEY = "NotificationEnabled";
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -52,6 +60,15 @@ public class InicioActivity extends AppCompatActivity {
         TextView verTareas = (TextView) findViewById(R.id.verTareas);
         TextView labelUser = (TextView) findViewById(R.id.labelUser);
         String correo= currentUser.getEmail();
+
+        // Lee el estado actual de las notificaciones desde SharedPreferences
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean notificationEnabled = prefs.getBoolean(NOTIFICATION_ENABLED_KEY, false);
+
+        if (notificationEnabled) {
+            // Programa la notificación diaria a las 9 AM
+            scheduleNotification(this);
+        }
 
         RecyclerView contenedorCategorias = (RecyclerView) findViewById(R.id.contenedorCategorias);
         contenedorCategorias.setLayoutManager(new GridLayoutManager(this, 2));
@@ -217,6 +234,25 @@ public class InicioActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void scheduleNotification(Context context) {
+        Intent intent = new Intent(context, MyFirebaseMessagingReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Obtén una instancia de AlarmManager
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        // Configura el calendario para la hora deseada (9 AM)
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 1);
+        calendar.set(Calendar.MINUTE, 46);
+        calendar.set(Calendar.SECOND, 30);
+
+        Log.d("Tareas", calendar.toString());
+        // Programa la notificación diaria a las 9 AM
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
 
