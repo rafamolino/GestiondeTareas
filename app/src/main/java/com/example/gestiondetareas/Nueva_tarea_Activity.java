@@ -89,6 +89,17 @@ public class Nueva_tarea_Activity extends AppCompatActivity {
                     }
                 });
 
+        Button cancelarTarea = (Button)  findViewById(R.id.cancelarTarea);
+
+        cancelarTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(Nueva_tarea_Activity.this, InicioActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         Button btnAñadirTarea = (Button) findViewById(R.id.btnAñadirTarea);
 
         btnAñadirTarea.setOnClickListener(new View.OnClickListener() {
